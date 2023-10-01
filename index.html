@@ -1617,52 +1617,103 @@ new LeaderLine(LeaderLine.pointAnchor($('[skill][navigation]'), {x: 2070, y: -15
 
 /* BATTLE SKILLS UTILITIES */
 
-const battleskills = LeaderLine.pointAnchor($('[picker][maputils] > [decline] > [button]'), {x: 1300, y: 40})
-new LeaderLine($('[picker][maputils] > [decline] > [button]'), battleskills, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+const battle = LeaderLine.pointAnchor($('[picker][maputils] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][maputils] > [decline] > [button]'), battle, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
 new LeaderLine(LeaderLine.pointAnchor($('[picker][maputils] > [decline] > [button]'), {x: 1400, y: 40}), $('[picker][battle] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
-// new LeaderLine(LeaderLine.pointAnchor($('[skill][eagleeye]'), {x: 2070, y: 99}), LeaderLine.pointAnchor($('[skill][eagleeye]'), {x: 2070, y: -1200}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
-// new LeaderLine(LeaderLine.pointAnchor($('[skill][eagleeye]'), {x: 2070, y: -1400}), LeaderLine.pointAnchor($('[picker][battle] > [decline] > [button]'), {x: 1350, y: 100}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
 
 
-// /* PATHFINDING */
-//
-// new LeaderLine($('[picker][maputils] > [accept] > [button]'), $('[picker][pathfinding] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
-//
-// const pathfinding = LeaderLine.pointAnchor($('[skill][pathfinding]'), skillOffset)
-// new LeaderLine($('[picker][pathfinding] > [accept] > [button]'), pathfinding, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
-// new LeaderLine($('[skill][pathfinding]'), $('[picker][estates] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
-// const pathfindingcorner = LeaderLine.pointAnchor($('[picker][estates] > [frame]'), {x: 600, y: -40})
-// new LeaderLine($('[picker][pathfinding] > [decline] > [button]'), pathfindingcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
-//
-//
-// /* ESTATES */
-//
-// const estates = LeaderLine.pointAnchor($('[skill][estates]'), skillOffset)
-// new LeaderLine($('[picker][estates] > [accept] > [button]'), estates, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
-// new LeaderLine($('[skill][estates]'), $('[picker][scouting] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
-// const estatescorner = LeaderLine.pointAnchor($('[picker][scouting] > [frame]'), {x: 600, y: -40})
-// new LeaderLine($('[picker][estates] > [decline] > [button]'), estatescorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
-//
-// /* SCOUTING */
-//
-// const scouting = LeaderLine.pointAnchor($('[skill][scouting]'), skillOffset)
-// new LeaderLine($('[picker][scouting] > [accept] > [button]'), scouting, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
-// new LeaderLine($('[skill][scouting]'), $('[picker][navigation] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
-// const scoutingcorner = LeaderLine.pointAnchor($('[picker][navigation] > [frame]'), {x: 600, y: -40})
-// new LeaderLine($('[picker][scouting] > [decline] > [button]'), scoutingcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
-//
-//
-// /* NAVIGATION */
-//
-// const navigation = LeaderLine.pointAnchor($('[skill][navigation]'), skillOffset)
-// new LeaderLine($('[picker][navigation] > [accept] > [button]'), navigation, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
-// const navigationcorner = LeaderLine.pointAnchor($('[picker][navigation] > [decline] > [button]'), {x: 1300, y: 40})
-// new LeaderLine($('[picker][navigation] > [decline] > [button]'), navigationcorner, {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
-// const navigationcorner2 = LeaderLine.pointAnchor($('[skill][navigation]'), {x: 2070, y: 99})
-// new LeaderLine($('[skill][navigation]'), navigationcorner2, {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
-//
-// new LeaderLine(LeaderLine.pointAnchor($('[skill][navigation]'), {x: 2070, y: 99}), LeaderLine.pointAnchor($('[skill][navigation]'), {x: 2070, y: -1200}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
-// new LeaderLine(LeaderLine.pointAnchor($('[skill][navigation]'), {x: 2070, y: -1500}), LeaderLine.pointAnchor($('[picker][maputils] > [decline] > [button]'), {x: 1350, y: 100}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+/* TACTICS */
+
+new LeaderLine($('[picker][battle] > [accept] > [button]'), $('[picker][tactics] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+const tactics = LeaderLine.pointAnchor($('[skill][tactics]'), skillOffset)
+new LeaderLine($('[picker][tactics] > [accept] > [button]'), tactics, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][tactics]'), $('[picker][ballistics] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const tacticscorner = LeaderLine.pointAnchor($('[picker][ballistics] > [frame]'), {x: 600, y: -40})
+new LeaderLine($('[picker][tactics] > [decline] > [button]'), tacticscorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* BALLISTICS */
+
+const ballistics = LeaderLine.pointAnchor($('[skill][ballistics]'), skillOffset)
+new LeaderLine($('[picker][ballistics] > [accept] > [button]'), ballistics, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][ballistics]'), $('[picker][artillery] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const ballisticscorner = LeaderLine.pointAnchor($('[picker][artillery] > [frame]'), {x: 600, y: -40})
+new LeaderLine($('[picker][ballistics] > [decline] > [button]'), ballisticscorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* ARTILLERY */
+
+const artillery = LeaderLine.pointAnchor($('[skill][artillery]'), skillOffset)
+new LeaderLine($('[picker][artillery] > [accept] > [button]'), artillery, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][artillery]'), $('[picker][firstaid] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const artillerycorner = LeaderLine.pointAnchor($('[picker][firstaid] > [frame]'), {x: 600, y: -40})
+new LeaderLine($('[picker][artillery] > [decline] > [button]'), artillerycorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* FIRST AID */
+
+const firstaid = LeaderLine.pointAnchor($('[skill][firstaid]'), skillOffset)
+new LeaderLine($('[picker][firstaid] > [accept] > [button]'), firstaid, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+const firstaidcorner = LeaderLine.pointAnchor($('[picker][firstaid] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][firstaid] > [decline] > [button]'), firstaidcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+const firstaidcorner2 = LeaderLine.pointAnchor($('[skill][firstaid]'), {x: 2070, y: 99})
+new LeaderLine($('[skill][firstaid]'), firstaidcorner2, {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+new LeaderLine(LeaderLine.pointAnchor($('[skill][firstaid]'), {x: 2070, y: 99}), LeaderLine.pointAnchor($('[skill][firstaid]'), {x: 2070, y: -1200}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[skill][firstaid]'), {x: 2070, y: -1500}), LeaderLine.pointAnchor($('[picker][battle] > [decline] > [button]'), {x: 1450, y: 100}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+
+/* DARK ARTS */
+const darkarts = LeaderLine.pointAnchor($('[picker][battle] > [decline] > [button]'), {x: 1400, y: 40})
+new LeaderLine($('[picker][battle] > [decline] > [button]'), darkarts, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][battle] > [decline] > [button]'), {x: 1500, y: 40}), $('[picker][darkarts] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+/* NECROMANCY */
+
+new LeaderLine($('[picker][battle] > [accept] > [button]'), $('[picker][tactics] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+const necromancy = LeaderLine.pointAnchor($('[skill][necromancy]'), skillOffset)
+new LeaderLine($('[picker][necromancy] > [accept] > [button]'), necromancy, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][necromancy]'), $('[picker][resistance] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const necromancycorner = LeaderLine.pointAnchor($('[picker][resistance] > [frame]'), {x: 600, y: -40})
+new LeaderLine($('[picker][necromancy] > [decline] > [button]'), necromancycorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* RESISTANCE */
+
+const resistance = LeaderLine.pointAnchor($('[skill][resistance]'), skillOffset)
+new LeaderLine($('[picker][resistance] > [accept] > [button]'), resistance, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][resistance]'), $('[picker][learning] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const resistancecorner = LeaderLine.pointAnchor($('[picker][learning] > [frame]'), {x: 600, y: -40})
+new LeaderLine($('[picker][resistance] > [decline] > [button]'), resistancecorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* LEARNING */
+
+const learning = LeaderLine.pointAnchor($('[skill][learning]'), skillOffset)
+new LeaderLine($('[picker][learning] > [accept] > [button]'), learning, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][learning]'), $('[picker][alcoholism] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const learningcorner = LeaderLine.pointAnchor($('[picker][alcoholism] > [frame]'), {x: 600, y: -40})
+new LeaderLine($('[picker][learning] > [decline] > [button]'), learningcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* ALCOHOLISM */
+
+const alcoholism = LeaderLine.pointAnchor($('[skill][alcoholism]'), skillOffset)
+new LeaderLine($('[picker][alcoholism] > [accept] > [button]'), alcoholism, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][alcoholism]'), $('[picker][interference] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const alcoholismcorner = LeaderLine.pointAnchor($('[picker][interference] > [frame]'), {x: 600, y: -40})
+new LeaderLine($('[picker][alcoholism] > [decline] > [button]'), alcoholismcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* INTERFERENCE */
+
+const interference = LeaderLine.pointAnchor($('[skill][interference]'), skillOffset)
+new LeaderLine($('[picker][interference] > [accept] > [button]'), interference, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][interference]'), $('[picker][firstaid] > [frame]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const interferencecorner = LeaderLine.pointAnchor($('[picker][firstaid] > [frame]'), {x: 600, y: -40})
+new LeaderLine($('[picker][interference] > [decline] > [button]'), interferencecorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
 
 </script>
 </body>
