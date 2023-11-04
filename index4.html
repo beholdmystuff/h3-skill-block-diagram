@@ -36,10 +36,17 @@
             background-color: black;
             top: 0;
             left: 0;
-            display: flex;
+            /* display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow: visible;
+            overflow: visible; */
+            background-image: url('img/troglo.gif');
+            background-size: 210px 192px;
+            background-position: center;
+            background-repeat: no-repeat;
+            image-rendering: pixelated;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
         }
         [screen] {
             width: 40960px;
@@ -730,13 +737,13 @@
             </div>
             <div description>
                 <span>Want to cast: </span>
-                <a href="https://heroes.thelazy.net/index.php/Haste" target="_blank">Group combat speed buff</a><span>, </span>
-                <a href="https://heroes.thelazy.net/index.php/View_Air" target="_blank">Satellite surveillance</a><span>, </span>
-                <a href="https://heroes.thelazy.net/index.php/Disrupting_Ray" target="_blank">Group defense debuff</a><span>, </span>
-                <a href="https://heroes.thelazy.net/index.php/Counterstrike" target="_blank">Extra retaliations</a><span>, </span>
-                <a href="https://heroes.thelazy.net/index.php/Chain_Lightning" target="_blank">Chain Lightning</a><span>, </span>
+                <a href="https://heroes.thelazy.net/index.php/Haste" target="_blank">group combat speed buff</a><span>, </span>
+                <a href="https://heroes.thelazy.net/index.php/View_Air" target="_blank">satellite surveillance</a><span>, </span>
+                <a href="https://heroes.thelazy.net/index.php/Disrupting_Ray" target="_blank">group defense debuff</a><span>, </span>
+                <a href="https://heroes.thelazy.net/index.php/Counterstrike" target="_blank">extra retaliations</a><span>, </span>
+                <a href="https://heroes.thelazy.net/index.php/Chain_Lightning" target="_blank">chain Lightning</a><span>, </span>
                 <a href="https://heroes.thelazy.net/index.php/Fly" target="_blank">Fly</a><span> and </span>
-                <a href="https://heroes.thelazy.net/index.php/Dimension_Door" target="_blank">Map teleport </a><span>with extra oomph?</span>
+                <a href="https://heroes.thelazy.net/index.php/Dimension_Door" target="_blank">map teleport </a><span>with extra oomph?</span>
             </div>
         </div>
 
@@ -755,9 +762,9 @@
             </div>
             <div description>
                 <span>Want to cast: </span>
-                <a href="https://heroes.thelazy.net/index.php/Haste" target="_blank">Group combat speed buff</a><span>, </span>
-                <a href="https://heroes.thelazy.net/index.php/View_Air" target="_blank">Satellite surveillance</a><span> and </span>
-                <a href="https://heroes.thelazy.net/index.php/Precision" target="_blank">Group range buff</a>
+                <a href="https://heroes.thelazy.net/index.php/Haste" target="_blank">group combat speed buff</a><span>, </span>
+                <a href="https://heroes.thelazy.net/index.php/View_Air" target="_blank">satellite surveillance</a><span> and </span>
+                <a href="https://heroes.thelazy.net/index.php/Precision" target="_blank">group range buff</a>
                 <span>with extra oomph and at reduced cost?</span>
             </div>
         </div>
@@ -806,9 +813,9 @@
             <div description>
                 <span>Interested in: </span>
                 <a href="https://heroes.thelazy.net/index.php/Slow" target="_blank">group speed debuff</a><span>, </span>
-                <a href="https://heroes.thelazy.net/index.php/Stone_Skin" target="_blank">Group def buff</a><span>, </span>
-                <a href="https://heroes.thelazy.net/index.php/Shield" target="_blank">Group damage reduction</a><span>, </span>
-                <a href="https://heroes.thelazy.net/index.php/View_Earth" target="_blank">Satellite surveillance</a><span>?</span>
+                <a href="https://heroes.thelazy.net/index.php/Stone_Skin" target="_blank">group def buff</a><span>, </span>
+                <a href="https://heroes.thelazy.net/index.php/Shield" target="_blank">group damage reduction</a><span>, </span>
+                <a href="https://heroes.thelazy.net/index.php/View_Earth" target="_blank">satellite surveillance</a><span>?</span>
             </div>
         </div>
 
@@ -839,7 +846,7 @@
                 <a href="https://heroes.thelazy.net/index.php/Fire_Wall" target="_blank">Fire Wall</a><span>, </span>
                 <a href="https://heroes.thelazy.net/index.php/Berserk" target="_blank">area Berserk</a><span>, </span>
                 <a href="https://heroes.thelazy.net/index.php/Frenzy" target="_blank">massive atk buff</a><span>, </span>
-                <a href="https://heroes.thelazy.net/index.php/Armageddon" target="_blank">crispy chicken armageddon</a><span>?</span>
+                <a href="https://heroes.thelazy.net/index.php/Armageddon" target="_blank">full screen dmg?</a><span>?</span>
             </div>
         </div>
 
@@ -1533,13 +1540,7 @@
 
     <div return></div>
 
-    <!-- <div mode overlay>
-        <div select>
-            <div desktop><div>Desktop</div></div>
-            <div mobile><div>Mobile</div></div>
-        </div>
-        <div prompt>Select your display device:</div>
-    </div> -->
+    <div overlay></div>
 
     <script src="leader-line.min.js"></script>
     <script type="text/javascript">
@@ -1841,7 +1842,20 @@
             })
         })
 
+        setTimeout(()=>
+        {
+            const overlay = $('overlay')
+            overlay.style.setProperty('opacity', '0')
+
+            $('return').click()
+            setTimeout(()=>
+            {
+                overlay.remove()
+            }, 500)
+        }, 1500)
+
         $('return').click()
+        $('overlay').remove()
 
     </script>
 
