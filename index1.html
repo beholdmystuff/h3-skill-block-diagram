@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+
+<head>
+    <style media="screen">
+        :root
+        {
+            --primary-text-color: #EDEDED;
+            --affirmative-color: #9160ed;
+            --negatory-color: #ed8860;
+            --arrow-color: #f3da7b;
+        }
+        body
+        {
+            transition: transform 0.07s linear;
+            width: 40960px;
+            height: 20480px;
+            background-size: 40px 40px;
+            background-color: #121212;
+            background-image:
+                linear-gradient(to right, #55555522 1px, transparent 1px),
+                linear-gradient(to bottom, #55555522 1px, transparent 1px);
+            user-select: none;
+        }
+        [screen]
+        {
+            width: inherit;
+            height: inherit;
+            background-size: 77px 77px;
+            background-color: #232323;
+            background-image:
+                linear-gradient(to right, #77777744 1px, transparent 3px),
+                linear-gradient(to bottom, #77777744 1px, transparent 3px);
+        }
+        [begin]
+        {
+            transition: transform 0.07s linear;
+            width: 292px;
+            height: 80px;
+            background-image: url("img/begin_button.png");
+            background-repeat: no-repeat;
+            background-size: 292px 80px;
+        }
+        [picker]
+        {
+            position: absolute;
+            z-index: 1;
+            width: 700px;
+            height: 470px;
+            background-image: url("img/frame.png");
+            background-size: 700px 470px;
+            background-repeat: no-repeat;
+        }
+        [picker][first]::after
+        {
+            content: " ";
+            width: 200px;
+            height: 171px;
+            display: block;
+            position: absolute;
+            margin-top: 350px;
+            margin-left: -10px;
+            background-image: url(img/scholar.png);
+        }
+        [accept], [decline]
+        {
+            width: 320px;
+            height: 320px;
+            background-size: 680px 300px;
+            background-repeat: no-repeat;
+            position: absolute;
+            z-index: 2;
+        }
+        [picker] > [accept]
+        {
+            background-image: url("img/vampire.png");
+            background-position: -340px 20px;
+            left: -40px;
+            top: 365px;
+        }
+        [picker] > [decline]
+        {
+            background-image: url("img/vampire.png");
+            background-position: -12px 20px;
+            left: 390px;
+            top: 380px;
+        }
+        [picker][branch] > [accept]
+        {
+            background-image: url("img/vampire.png");
+            background-position: -340px 20px;
+            left: 160px;
+            top: 380px;
+        }
+        [picker][branch] > [decline]
+        {
+            background-image: url("img/vampire.png");
+            background-position: -12px 20px;
+            left: 570px;
+            top: 55px;
+        }
+        [picker][right] > [accept]
+        {
+            background-image: url("img/vampire.png");
+            background-position: -340px 20px;
+            left: 590px;
+            top: 170px;
+        }
+        [picker][right] > [decline]
+        {
+            background-image: url("img/vampire.png");
+            background-position: -12px 20px;
+            left: 580px;
+            top: -75px;
+        }
+        [picker][flipped] > [accept]
+        {
+            background-image: url("img/vampire.png");
+            background-position: -340px 20px;
+            left: 390px;
+            top: 380px;
+        }
+        [picker][flipped] > [decline]
+        {
+            background-image: url("img/vampire.png");
+            background-position: -12px 20px;
+            left: -40px;
+            top: 365px;
+        }
+        [accept] > [button], [decline] > [button]
+        {
+            background-size: contain;
+            width: 140px;
+            height: 80px;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            background-size: 1100px 80px;
+        }
+        [accept] > [button]
+        {
+            background-image: url("img/buttons.png");
+            margin-top: 70px;
+            margin-left: 300px;
+            background-position: -688px 0px;
+        }
+        [accept] > [button]:active
+        {
+            background-position: -964px 0px;
+        }
+        [decline] > [button]
+        {
+            background-image: url("img/buttons.png");
+            margin-left: 290px;
+            margin-top: 130px;
+            background-position: -136px 0px;
+        }
+        [decline] > [button]:active
+        {
+            background-position: -410px 0px;
+        }
+        [description]
+        {
+            padding-left: 30px;
+            width: 600px;
+            height: 100%;
+            font-size: 42px;
+            font-family: "Times New Roman";
+            color: var(--primary-text-color);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 1);
+            position: absolute;
+            z-index: 2;
+            vertical-align: middle;
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        [description] > a
+        {
+            text-decoration: underline transparent;
+            transition: text-decoration 0.2s linear;
+            color: var(--primary-text-color);
+            white-space: pre-wrap;
+        }
+        [description] > div
+        {
+            margin-bottom: 15px;
+        }
+        [description] > a:hover
+        {
+            text-decoration: underline var(--primary-text-color);
+        }
+        [skill]
+        {
+            width: 524px;
+            height: 198px;
+            background-size: 2090px 1590px;
+            font-size: 64px;
+            font-family: "Times New Roman";
+            color: var(--primary-text-color);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 1);
+            position: absolute;
+            background-image: url(img/skills.png);
+            z-index: 1;
+        }
+        [skill]::before
+        {
+            width: inherit;
+            margin-top: -75px;
+            position: absolute;
+            text-align: center;
+        }
+        [skill][wisdom]
+        {
+            background-position: -521px -597px;
+        }
+        [skill][wisdom]::before
+        {
+            content: "Wisdom";
+        }
+        [skill][airmagic]
+        {
+            background-position: -1565px -597px;
+        }
+        [skill][airmagic]::before
+        {
+            content: "Air Magic";
+        }
+        [skill][earthmagic]
+        {
+            background-position: -4705px -794px;
+        }
+        [skill][earthmagic]::before
+        {
+            content: "Earth Magic";
+        }
+        [skill][firemagic]
+        {
+            background-position: -1046px -594px;
+        }
+        [skill][firemagic]::before
+        {
+            content: "Fire Magic";
+        }
+        [skill][watermagic]
+        {
+            background-position: 0px -795px;
+        }
+        [skill][watermagic]::before
+        {
+            content: "Water Magic";
+        }
+        [skill][offense]
+        {
+            background-position: -1046px -994px;
+        }
+        [skill][offense]::before
+        {
+            content: "Offense";
+        }
+        [skill][armorer]
+        {
+            background-position: -1570px -995px;
+        }
+        [skill][armorer]::before
+        {
+            content: "Armorer";
+        }
+        [skill][logistics]
+        {
+            background-position: -1045px -198px;
+        }
+        [skill][logistics]::before
+        {
+            content: "Logistics";
+        }
+        [skill][fauxlogistics]
+        {
+            background-position: -1570px -396px;
+        }
+        [skill][fauxlogistics]::before
+        {
+            content: "Logistics";
+        }
+        [skill][diplomacy]
+        {
+            background-position: -1045px 0px;
+        }
+        [skill][diplomacy]::before
+        {
+            content: "Diplomacy";
+        }
+        [skill][archery]
+        {
+            background-position: 0px 0px;
+        }
+        [skill][archery]::before
+        {
+            content: "Archery";
+        }
+        [skill][leadership]
+        {
+            background-position: -521px -198px;
+        }
+        [skill][leadership]::before
+        {
+            content: "Leadership";
+        }
+        [skill][luck]
+        {
+            background-position: -1565px -198px;
+        }
+        [skill][luck]::before
+        {
+            content: "Luck";
+        }
+        [skill][sorcery]
+        {
+            background-position: -521px -1188px;
+        }
+        [skill][sorcery]::before
+        {
+            content: "Sorcery";
+        }
+        [skill][artillery]
+        {
+            background-position: 0px -995px;
+        }
+        [skill][artillery]::before
+        {
+            content: "Artillery";
+        }
+        [skill][firstaid]
+        {
+            background-position: -1565px -1192px;
+        }
+        [skill][firstaid]::before
+        {
+            content: "First Aid";
+        }
+        [skill][tactics]
+        {
+            background-position: -1565px -792px;
+        }
+        [skill][tactics]::before
+        {
+            content: "Tactics";
+        }
+        [skill][intelligence]
+        {
+            background-position: 0px -1194px;
+        }
+        [skill][intelligence]::before
+        {
+            content: "Intelligence";
+        }
+        [skill][mysticism]
+        {
+            background-position: 0px -397px;
+        }
+        [skill][mysticism]::before
+        {
+            content: "Mysticism";
+        }
+        [skill][scholar]
+        {
+            background-position: -1045px 794px;
+        }
+        [skill][scholar]::before
+        {
+            content: "Scholar";
+        }
+        [skill][pathfinding]
+        {
+            background-position: -1565px -398px;
+        }
+        [skill][pathfinding]::before
+        {
+            content: "Pathfinding";
+        }
+        [skill][ballistics]
+        {
+            background-position: -521px 0px;
+        }
+        [skill][ballistics]::before
+        {
+            content: "Ballistics";
+        }
+        [skill][scouting]
+        {
+            background-position: 0px -598px;
+        }
+        [skill][scouting]::before
+        {
+            content: "Scouting";
+        }
+        [skill][navigation]
+        {
+            background-position: -521px -396px;
+        }
+        [skill][navigation]::before
+        {
+            content: "Navigation";
+        }
+        [skill][estates]
+        {
+            background-position: 0px -198px;
+        }
+        [skill][estates]::before
+        {
+            content: "Estates";
+        }
+        [skill][necromancy]
+        {
+            background-position: -1045px -396px;
+        }
+        [skill][necromancy]::before
+        {
+            content: "Necromancy";
+        }
+        [skill][learning]
+        {
+            background-position: -521px -990px;
+        }
+        [skill][learning]::before
+        {
+            content: "Learning";
+        }
+        [skill][eagleeye]
+        {
+            background-position: -1565px 0px;
+        }
+        [skill][eagleeye]::before
+        {
+            content: "Eagle Eye";
+        }
+        [skill][resistance]
+        {
+            background-position: -1045px 396px;
+        }
+        [skill][resistance]::before
+        {
+            content: "Resistance";
+        }
+        [skill][alcoholism]
+        {
+            background-position: 0px -1392px;
+        }
+        [skill][alcoholism]::before
+        {
+            content: "Alcoholism";
+        }
+        [skill][interference]
+        {
+            background-position: -521px -1394px;
+        }
+        [skill][interference]::before
+        {
+            content: "Interference";
+        }
+        [affirmative]
+        {
+            margin: 0;
+            width: 550px;
+            height: 195px;
+            color: var(--affirmative-color);
+            text-shadow: 2px 2px 25px var(--affirmative-color);
+        }
+        [negatory]
+        {
+            margin: 0;
+            width: 550px;
+            height: 195px;
+            color: var(--negatory-color);
+            text-shadow: 2px 2px 25px var(--negatory-color);
+        }
+        [end]
+        {
+            width: 400px;
+            height: 300px;
+            border: 1px solid red;
+        }
+        .leader-line
+        {
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+<div screen>
+
+    <div description affirmative style="transform: translate(1369px, 442px);">ass</div>
+    <div description negatory style="transform: translate(1369px, 642px);">asss</div>
+
+
+    <div begin style="transform: translate(1369px, 442px);"></div>
+
+    <div picker branch wisdom style="transform: translate(3181px, 138px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description><div>Wisdom skill offers education and powers beyond imagination.</div>
+            <div>For ample cost of one skill slot and couple levels, get access to spell levels beyond first two.</div>
+            <div>Best for medium to long maps.</div></div>
+    </div>
+
+
+    <div description affirmative wisdom style="transform: translate(3783px, 717px);">That's fourty additional spells and I'm gonna catch'em all.</div>
+    <div description negatory wisdom style="transform: translate(4056px, 137px);">I don't dabble in feeble arts of Magic. I deal in Might and my stock is high.</div>
+
+
+    <div skill wisdom style="transform: translate(3326px, 2041px);"></div>
+
+
+    <div picker branch dickless style="transform: translate(4953px, 1706px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description><div>First two levels of spells are still most spells you generally cast in average PvE combat.</div>
+        <div>Best for small scenarios with limited number of experience.</div></div>
+    </div>
+
+
+    <div description affirmative dickless style="transform: translate(5565px, 2275px);">Well maybe a little feeble.</div>
+    <div description negatory dickless style="transform: translate(5823px, 1807px);">NO FEEBLE.</div>
+
+<!--  -->
+
+    <div picker mageair flipped style="transform: translate(3232px, 3280px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Want to cast: </span>
+            <a href="" target="_blank">Group combat speed buff, </a>
+            <a href="" target="_blank">Satellite surveillance, </a>
+            <a href="" target="_blank">Group defense debuff, </a>
+            <a href="" target="_blank">Extra retaliations, </a>
+            <a href="" target="_blank">Chain Lightning, </a>
+            <a href="" target="_blank">Fly, </a>
+            <a href="" target="_blank">Map teleport </a>
+            <span style="">with extra oomph?</span>
+        </div>
+    </div>
+
+
+    <div description affirmative mageair style="transform: translate(3955px, 3550px);">Just let me destroy as fast as possible.</div>
+    <div description negatory mageair style="transform: translate(2996px, 4001px);">Those are all very nice words indeed.</div>
+
+
+    <div picker warriorair style="transform: translate(4951px, 3302px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Want to cast: </span>
+            <a href="" target="_blank">Group combat speed buff</a>,
+            <a href="" target="_blank">Satellite surveillance</a> and
+            <a href="" target="_blank">Group range buff</a>,
+            <span>with extra oomph and at reduced cost?</span>
+        </div>
+    </div>
+
+    <div description affirmative warriorair style="transform: translate(4674px, 4035px);">Winning faster? Don't mind if I do!</div>
+    <div description negatory warriorair style="transform: translate(5890px, 3834px);">Your words mean little to me sorcerer.</div>
+
+    <div skill airmagic style="transform: translate(3359px, 4953px);"></div>
+    <div skill airmagic dickless style="transform: translate(4839px, 4953px);"></div>
+
+
+<!--  -->
+
+    <div picker mageearth flipped style="transform: translate(3232px, 6370px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group def buff</a>,
+            <a href="" target="_blank">Group damage reduction</a>,
+            <a href="" target="_blank">Satellite surveillance</a>,
+            <a href="" target="_blank">Some damage on all living stacks</a>,
+            <a href="" target="_blank">Some damage on all living stacks</a>,
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div description affirmative mageearth style="transform: translate(4031px, 6921px);">Why is this even a question?</div>
+    <div description negatory mageearth style="transform: translate(3005px, 7090px);">We're going in regardless and nothing is going to stop us.</div>
+
+
+    <div picker warriorearth style="transform: translate(4878px, 6391px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group def buff</a>,
+            <a href="" target="_blank">Group damage reduction</a>,
+            <a href="" target="_blank">Satellite surveillance</a> or
+            <a href="" target="_blank">Some damage on all living stacks?</a>
+            <span>?</span>
+        </div>
+    </div>
+
+    <div description affirmative warriorearth style="transform: translate(4648px, 7130px);">I'm allergic to mercy. I want my enemies slow and my armies tough.</div>
+    <div description negatory warriorearth style="transform: translate(5675px, 7032px);"><div>I always face my oponents at ther peak.</div><div>With one hand tied behind my Crag.</div></div>
+
+
+    <div skill earthmagic style="transform: translate(4174px, 8387px);"></div>
+    <div skill earthmagic dickless style="transform: translate(4174px, 8387px);"></div>
+
+
+    <div picker magefire flipped style="transform: translate(3232px, 9950px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+    <div description affirmative magefire style="transform: translate(4044px, 10509px);">Let's kill in fun ways.</div>
+    <div description negatory magefire style="transform: translate(3003px, 10673px);">No. This is child's talk.</div>
+
+
+    <div picker warriorfire style="transform: translate(4848px, 9969px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>
+            <span>?</span>
+        </div>
+    </div>
+
+    <div description affirmative warriorfire style="transform: translate(4702px, 10701px);">Let's make them ouchie!</div>
+    <div description negatory warriorfire style="transform: translate(5662px, 10593px);"><div>I always face my oponents at ther peak.</div><div>With one hand tied behind my Crag.</div></div>
+
+
+    <div skill firemagic style="transform: translate(4237px, 12060px);"></div>
+    <div skill firemagic dickless style="transform: translate(4237px, 12060px);"></div>
+
+
+    <div picker magewater flipped style="transform: translate(3232px, 13508px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+    <div description affirmative magewater style="transform: translate(4031px, 14061px);">Moist "YES".</div>
+    <div description negatory magewater style="transform: translate(3393px, 14225px);">Shoo.</div>
+
+    <div picker warriorwater style="transform: translate(4848px, 13508px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+    <div description affirmative warriorwater style="transform: translate(4588px, 14233px);">Health benefits of magic are real and not to be trifled with.</div>
+    <div description negatory warriorwater style="transform: translate(5664px, 13902px);"><div>Pass.</div> <div>Wellbeing is for weakbeing.</div></div>
+
+
+    <div skill watermagic style="transform: translate(4238px, 15594px);"></div>
+
+
+<!--  -->
+
+    <div picker apocalypsehorsemen branch style="transform: translate(8431px, 1798px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>Want to ride with the Four Horsemen of Apocalypse? Most players enjoy the advantage.</div>
+    </div>
+
+    <div description affirmative apocalypsehorsemen style="transform: translate(9318px, 2143px);"><div>You're new here?</div><div>I'm practically family.</div></div>
+    <div description negatory apocalypsehorsemen style="transform: translate(8454px, 2472px);"><div>I don't need the advantage.<div></div>I am the advantage.</div></div>
+
+    <div picker offense style="transform: translate(7292px, 3280px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>There are close to 140 units in the game(including upgrades) and Offence gives bonus damage to about 80% of them.</div>
+    </div>
+
+
+    <div description affirmative offense style="transform: translate(9318px, 6143px);">We need to pump those rookie numbers up.</div>
+    <div description negatory offense style="transform: translate(8454px, 6472px);"><div>Nay.</div> <div>We are already built for conquest.</div></div>
+
+
+    <div skill offense style="transform: translate(8675px, 4954px);"></div>
+
+
+    <div picker armorer style="transform: translate(7292px, 6370px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description><div>All 140 units are capable of being hurt, and Armorer prevents losing numbers.</div> <div>15% of damage could be anything, from a drunken Peasant slipping on his piss, to a rage of thousand Ancient Behemoths.</div></div>
+    </div>
+
+
+    <div description affirmative armorer style="transform: translate(9318px, 6143px);">Any loss is too great. They had families.</div>
+    <div description negatory armorer style="transform: translate(8454px, 6472px);">Only the enemy will feel the pain.</div>
+
+
+    <div skill armorer style="transform: translate(8675px, 8387px);"></div>
+
+
+    <div picker logistics style="transform: translate(9675px, 9969px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description><div>Logistics can amount to additional day or two worth of movement points every week.</div> <div>Better horses, mobile munitions, high quality futons. One would think it's only a skill button, but it's all there. You and I both know it.</div></div>
+    </div>
+
+    <div description affirmative logistics style="transform: translate(9318px, 6143px);">Movement is life. We die when we stop moving.</div>
+    <div description negatory logistics style="transform: translate(8454px, 6472px);"><div>Everybody is already packed light.</div> <div>Not our first rodeo, partner.</div></div>
+
+
+    <div skill logistics style="transform: translate(8675px, 12060px);"></div>
+
+
+    <div picker diplomacy style="transform: translate(9675px, 13508px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description><div>In short, Diplomacy breaks the game.</div>
+        <div>It massively reduces the amount of money needed for creatures to become cordial with your Hero in addition to bringing them to your cause with the power of your silver tongue alone.</div></div>
+    </div>
+
+    <div description affirmative logistics style="transform: translate(9318px, 6143px);">Trust me. I've got a plan.</div>
+    <div description negatory logistics style="transform: translate(8454px, 6472px);"><div>Everybody is already packed light.</div> <div>Not our first rodeo, partner.</div></div>
+
+    <div skill diplomacy style="transform: translate(8675px, 15594px);"></div>
+
+
+    <!--  -->
+
+
+    <div picker extradmg branch style="transform: translate(8431px, 1798px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>Some spells of first two levels are still powerful with School of Magic even without Wisdom.</div>
+    </div>
+
+
+    <div picker archery style="transform: translate(9675px, 3302px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Want to cast: </span>
+            <a href="" target="_blank">Group combat speed buff</a>,
+            <a href="" target="_blank">Satellite surveillance</a>,
+            <a href="" target="_blank">Group defense debuff</a>,
+            <a href="" target="_blank">Extra retaliations</a>,
+            <a href="" target="_blank">Chain Lightning</a>,
+            <a href="" target="_blank">Fly</a>,
+            <a href="" target="_blank">Map teleport</a>
+            <span>with extra oomph?</span>
+        </div>
+    </div>
+
+
+    <div skill archery style="transform: translate(13012px, 4954px);"></div>
+
+
+    <div picker leadership style="transform: translate(9675px, 6391px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill leadership style="transform: translate(13012px, 8387px);"></div>
+
+
+    <div picker luck style="transform: translate(9675px, 9969px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill luck style="transform: translate(13012px, 12060px);"></div>
+
+
+    <div picker sorcery style="transform: translate(9675px, 13508px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill sorcery style="transform: translate(13012px, 15594px);"></div>
+
+    <div picker mageutils branch style="transform: translate(8431px, 1798px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>Some spells of first two levels are still powerful with School of Magic even without Wisdom.</div>
+    </div>
+
+
+    <div picker intelligence style="transform: translate(9675px, 3302px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Want to cast: </span>
+            <a href="" target="_blank">Group combat speed buff</a>,
+            <a href="" target="_blank">Satellite surveillance</a>,
+            <a href="" target="_blank">Group defense debuff</a>,
+            <a href="" target="_blank">Extra retaliations</a>,
+            <a href="" target="_blank">Chain Lightning</a>,
+            <a href="" target="_blank">Fly</a>,
+            <a href="" target="_blank">Map teleport</a>
+            <span>with extra oomph?</span>
+        </div>
+    </div>
+
+    <div skill intelligence style="transform: translate(17212px, 4954px);"></div>
+
+
+    <div picker mysticism style="transform: translate(9675px, 6391px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill mysticism style="transform: translate(17212px, 8387px);"></div>
+
+
+    <div picker scholar style="transform: translate(9675px, 9969px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill scholar style="transform: translate(17212px, 12060px);"></div>
+
+
+    <div picker eagleeye style="transform: translate(9675px, 13508px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill eagleeye style="transform: translate(17212px, 15594px);"></div>
+
+
+    <div picker maputils branch style="transform: translate(8431px, 1798px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>Some spells of first two levels are still powerful with School of Magic even without Wisdom.</div>
+    </div>
+
+
+    <div picker pathfinding style="transform: translate(9675px, 3302px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Want to cast: </span>
+            <a href="" target="_blank">Group combat speed buff</a>,
+            <a href="" target="_blank">Satellite surveillance</a>,
+            <a href="" target="_blank">Group defense debuff</a>,
+            <a href="" target="_blank">Extra retaliations</a>,
+            <a href="" target="_blank">Chain Lightning</a>,
+            <a href="" target="_blank">Fly</a>,
+            <a href="" target="_blank">Map teleport</a>
+            <span>with extra oomph?</span>
+        </div>
+    </div>
+
+
+    <div skill pathfinding style="transform: translate(21412px, 4954px);"></div>
+
+    <div picker estates style="transform: translate(9675px, 6391px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Want to cast: </span>
+            <a href="" target="_blank">Group combat speed buff</a>,
+            <a href="" target="_blank">Satellite surveillance</a>,
+            <a href="" target="_blank">Group defense debuff</a>,
+            <a href="" target="_blank">Extra retaliations</a>,
+            <a href="" target="_blank">Chain Lightning</a>,
+            <a href="" target="_blank">Fly</a>,
+            <a href="" target="_blank">Map teleport</a>
+            <span>with extra oomph?</span>
+        </div>
+    </div>
+
+
+    <div skill estates style="transform: translate(21412px, 8387px);"></div>
+
+
+    <div picker scouting style="transform: translate(9675px, 9969px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill scouting style="transform: translate(21412px, 12060px);"></div>
+
+
+    <div picker navigation style="transform: translate(9675px, 13508px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill navigation style="transform: translate(21412px, 15594px);"></div>
+
+
+    <div picker battle branch style="transform: translate(8431px, 1798px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>Some spells of first two levels are still powerful with School of Magic even without Wisdom.</div>
+    </div>
+
+
+    <div picker ballistics style="transform: translate(9675px, 3302px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+    <div skill ballistics style="transform: translate(29812px, 8387px);"></div>
+
+
+    <div picker artillery style="transform: translate(9675px, 3302px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Want to cast: </span>
+            <a href="" target="_blank">Group combat speed buff</a>,
+            <a href="" target="_blank">Satellite surveillance</a>,
+            <a href="" target="_blank">Group defense debuff</a>,
+            <a href="" target="_blank">Extra retaliations</a>,
+            <a href="" target="_blank">Chain Lightning</a>,
+            <a href="" target="_blank">Fly</a>,
+            <a href="" target="_blank">Map teleport</a>
+            <span>with extra oomph?</span>
+        </div>
+    </div>
+
+    <div skill artillery style="transform: translate(25612px, 8387px);"></div>
+
+
+    <div picker firstaid style="transform: translate(9675px, 9969px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill firstaid style="transform: translate(25612px, 12060px);"></div>
+
+
+    <div picker tactics style="transform: translate(9675px, 13508px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill tactics style="transform: translate(25612px, 15594px);"></div>
+
+
+    <div picker darkarts branch style="transform: translate(8431px, 1798px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>Some spells of first two levels are still powerful with School of Magic even without Wisdom.</div>
+    </div>
+
+
+    <div picker necromancy style="transform: translate(9675px, 6391px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill necromancy style="transform: translate(29812px, 12060px);"></div>
+
+
+    <div picker learning style="transform: translate(9675px, 3302px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Want to cast: </span>
+            <a href="" target="_blank">Group combat speed buff</a>,
+            <a href="" target="_blank">Satellite surveillance</a>,
+            <a href="" target="_blank">Group defense debuff</a>,
+            <a href="" target="_blank">Extra retaliations</a>,
+            <a href="" target="_blank">Chain Lightning</a>,
+            <a href="" target="_blank">Fly</a>,
+            <a href="" target="_blank">Map teleport</a>
+            <span>with extra oomph?</span>
+        </div>
+    </div>
+
+
+    <div skill learning style="transform: translate(34012px, 8387px);"></div>
+
+
+    <div picker resistance style="transform: translate(9675px, 6391px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill resistance style="transform: translate(34012px, 12060px);"></div>
+
+
+    <div picker alcoholism style="transform: translate(9675px, 9969px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill alcoholism style="transform: translate(29812px, 15594px);"></div>
+
+
+    <div picker interference style="transform: translate(9675px, 9969px);">
+
+        <div decline><div button></div></div>
+        <div accept><div button></div></div>
+        <div description>
+            <span>Interested in: </span>
+            <a href="" target="_blank">Group atk buff</a>,
+            <a href="" target="_blank">Group atk debuff</a>,
+            <a href="" target="_blank">Spicier Blind</a>,
+            <a href="" target="_blank">Fire Wall</a>,
+            <a href="" target="_blank">Enemy Scanning</a>,
+            <a href="" target="_blank">AoE Berserk</a>,
+            <a href="" target="_blank">Massive single atk buff</a>,
+            <a href="" target="_blank">crispy chicken armageddon</a>
+            <span>?</span>
+        </div>
+    </div>
+
+
+    <div skill interference style="transform: translate(34012px, 15594px);"></div>
+
+    <div end style="transform: translate(32612px, 19000px);"></div>
+
+</div>
+
+
+
+<script src='panzoom.min.js'></script>
+<script src="plain-draggable.min.js"></script>
+<script src="leader-line.min.js"></script>
+
+<script type="text/javascript">
+
+
+$ = (query) =>
+{
+    return document.querySelector(query)
+}
+$$ = (query) =>
+{
+    return document.querySelectorAll(query)
+}
+$v = (property) =>
+{
+    return getComputedStyle(document.body).getPropertyValue(property)
+}
+
+const elements = [...(document.querySelectorAll("div[description][negatory], div[description][affirmative]"))]
+// const elements = [...$("div[screen]").children]
+// const elements = []
+console.log(elements)
+
+document.addEventListener("keydown", (event) =>
+{
+    if (event.keyCode === 83)
+        dumpTransforms()
+})
+
+let transforms = {}
+function dumpTransforms()
+{
+    [...$("div[screen]").children].forEach((element) =>
+    {
+        let attributes = element.getAttributeNames()
+        const classNameIndex = attributes.indexOf("class")
+        if (classNameIndex !== -1)
+            attributes.splice(classNameIndex, 1)
+
+        const styleNameIndex = attributes.indexOf("style")
+        if (styleNameIndex !== -1)
+            attributes.splice(styleNameIndex, 1)
+
+        let querySelector = ""
+        attributes.forEach(name =>
+        {
+            querySelector += "[" + name + "]"
+        })
+
+        transforms[querySelector] = element.style.transform
+    })
+    console.log(JSON.stringify(transforms));
+}
+
+function loadTransforms()
+{
+    const obj = JSON.parse('{"[description][affirmative]":"translate(1369px, 442px)","[description][negatory]":"translate(1369px, 642px)","[begin]":"translate(1369px, 442px)","[picker][branch][wisdom]":"translate(3181px, 138px)","[description][affirmative][wisdom]":"translate(3104px, 848px)","[description][negatory][wisdom]":"translate(3959px, 518px)","[skill][wisdom]":"translate(3326px, 2041px)","[picker][branch][dickless]":"translate(4953px, 1706px)","[description][affirmative][dickless]":"translate(4962px, 2372px)","[description][negatory][dickless]":"translate(5798px, 1657px)","[picker][mageair][flipped]":"translate(3232px, 3280px)","[description][affirmative][mageair]":"translate(3994px, 3505px)","[description][negatory][mageair]":"translate(2943px, 3965px)","[picker][warriorair]":"translate(4951px, 3302px)","[description][affirmative][warriorair]":"translate(4630px, 4006px)","[description][negatory][warriorair]":"translate(5755px, 3906px)","[skill][airmagic]":"translate(3620px, 4953px)","[skill][airmagic][dickless]":"translate(4839px, 4953px)","[picker][mageearth][flipped]":"translate(3232px, 6370px)","[description][affirmative][mageearth]":"translate(3951px, 6648px)","[description][negatory][mageearth]":"translate(2955px, 7088px)","[picker][warriorearth]":"translate(4878px, 6391px)","[description][affirmative][warriorearth]":"translate(4596px, 7145px)","[description][negatory][warriorearth]":"translate(5683px, 7062px)","[skill][earthmagic]":"translate(3620px, 8387px)","[skill][earthmagic][dickless]":"translate(4839px, 8387px)","[picker][magefire][flipped]":"translate(3232px, 9950px)","[description][affirmative][magefire]":"translate(4041px, 10494px)","[description][negatory][magefire]":"translate(3027px, 10651px)","[picker][warriorfire]":"translate(4848px, 9969px)","[description][affirmative][warriorfire]":"translate(4637px, 10692px)","[description][negatory][warriorfire]":"translate(5666px, 10650px)","[skill][firemagic]":"translate(3827px, 12005px)","[skill][firemagic][dickless]":"translate(4785px, 12006px)","[picker][magewater][flipped]":"translate(3232px, 13508px)","[description][affirmative][magewater]":"translate(4031px, 14056px)","[description][negatory][magewater]":"translate(3327px, 14178px)","[picker][warriorwater]":"translate(4848px, 13508px)","[description][affirmative][warriorwater]":"translate(4513px, 14217px)","[description][negatory][warriorwater]":"translate(5676px, 13791px)","[skill][watermagic]":"translate(4238px, 15594px)","[picker][apocalypsehorsemen][branch]":"translate(8503px, 1738px)","[description][affirmative][apocalypsehorsemen]":"translate(8560px, 2438px)","[description][negatory][apocalypsehorsemen]":"translate(9361px, 1660px)","[picker][offense]":"translate(8576px, 3252px)","[description][affirmative][offense]":"translate(8275px, 3963px)","[description][negatory][offense]":"translate(9318px, 3531px)","[skill][offense]":"translate(8675px, 4954px)","[picker][armorer]":"translate(8560px, 6366px)","[description][affirmative][armorer]":"translate(8262px, 7057px)","[description][negatory][armorer]":"translate(9305px, 6643px)","[skill][armorer]":"translate(8675px, 8387px)","[picker][logistics]":"translate(8547px, 10021px)","[description][affirmative][logistics]":"translate(8250px, 10718px)","[description][negatory][logistics]":"translate(9278px, 10304px)","[skill][logistics]":"translate(8675px, 12060px)","[picker][diplomacy]":"translate(8519px, 13604px)","[skill][diplomacy]":"translate(8675px, 15594px)","[picker][extradmg][branch]":"translate(12795px, 1782px)","[picker][archery]":"translate(12835px, 3218px)","[skill][archery]":"translate(13012px, 4954px)","[picker][leadership]":"translate(12951px, 6407px)","[skill][leadership]":"translate(13012px, 8387px)","[picker][luck]":"translate(12895px, 10073px)","[skill][luck]":"translate(13012px, 12060px)","[picker][sorcery]":"translate(12891px, 13708px)","[skill][sorcery]":"translate(13012px, 15594px)","[picker][mageutils][branch]":"translate(17099px, 1857px)","[picker][intelligence]":"translate(17119px, 3202px)","[skill][intelligence]":"translate(17212px, 4954px)","[picker][mysticism]":"translate(17139px, 6407px)","[skill][mysticism]":"translate(17212px, 8387px)","[picker][scholar]":"translate(17123px, 9977px)","[skill][scholar]":"translate(17212px, 12060px)","[picker][eagleeye]":"translate(17107px, 13744px)","[skill][eagleeye]":"translate(17212px, 15594px)","[picker][maputils][branch]":"translate(21295px, 1914px)","[picker][pathfinding]":"translate(21323px, 3210px)","[skill][pathfinding]":"translate(21396px, 4951px)","[picker][estates]":"translate(21303px, 6419px)","[skill][estates]":"translate(21394px, 8386px)","[picker][scouting]":"translate(21327px, 9893px)","[skill][scouting]":"translate(21412px, 12060px)","[picker][navigation]":"translate(21311px, 13652px)","[skill][navigation]":"translate(21412px, 15594px)","[picker][battle][branch]":"translate(25182px, 1932px)","[picker][ballistics]":"translate(25396px, 6258px)","[skill][ballistics]":"translate(25340px, 8232px)","[picker][artillery]":"translate(25376px, 9956px)","[skill][artillery]":"translate(25501px, 12071px)","[picker][firstaid]":"translate(25456px, 13661px)","[skill][firstaid]":"translate(25512px, 15601px)","[picker][tactics]":"translate(25253px, 3104px)","[skill][tactics]":"translate(25311px, 4893px)","[picker][darkarts][branch]":"translate(29583px, 1903px)","[picker][necromancy]":"translate(29579px, 3158px)","[skill][necromancy]":"translate(29581px, 4864px)","[picker][learning]":"translate(29556px, 9936px)","[skill][learning]":"translate(29542px, 12134px)","[picker][resistance]":"translate(29507px, 6216px)","[skill][resistance]":"translate(29366px, 8190px)","[picker][alcoholism]":"translate(29575px, 13551px)","[skill][alcoholism]":"translate(29556px, 15565px)","[picker][interference]":"translate(29437px, 17076px)","[skill][interference]":"translate(29407px, 19016px)","[end]":"translate(32612px, 19000px)"}')
+
+    Object.keys(obj).forEach(key =>
+    {
+        console.log(key)
+        const transform = obj[key]
+        const element = document.querySelector("div" + key)
+        if (!element)
+            return;
+        console.log(element.style.getPropertyValue("transform"))
+        console.log(transform)
+        element.style.setProperty("transform",  transform)
+        console.log(element.style.getPropertyValue("transform"))
+    })
+}
+
+loadTransforms()
+
+let draggables = []
+
+elements.forEach(element =>
+{
+    let draggable = new PlainDraggable(element)
+    element.addEventListener("dragend", (ass) => { console.log(ass) })
+    draggable.ondragend = (ass) => { console.log(ass) }
+    draggables.push(draggable)
+})
+
+panzoom(document.body)
+
+const skillOffset = {x: 262, y: -100}
+
+$('[begin]').onclick = () => { document.body.style = "transform-origin: 0px 0px 0px; transform: matrix(0.544615, 0, 0, 0.544615, 1954.11, 2078.34);" }
+
+new LeaderLine($('[begin]'), $('[picker][wisdom]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+/* WISDOM */
+new LeaderLine($('[picker][wisdom] > [accept] > [button]'), LeaderLine.pointAnchor($('[skill][wisdom]'), skillOffset), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][wisdom] > [decline] > [button]'), $('[picker][dickless]'), {"path": "fluid", "size": 7, "color": $v('--negatory-color')})
+
+
+/* AIR MAGIC */
+new LeaderLine($('[skill][wisdom]'), $('[picker][mageair]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine($('[picker][dickless] > [accept] > [button]'), $('[picker][warriorair]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+const airmagic = LeaderLine.pointAnchor($('[skill][airmagic]'), skillOffset)
+const airmagicdickless = LeaderLine.pointAnchor($('[skill][airmagic][dickless]'), skillOffset)
+new LeaderLine($('[picker][mageair] > [accept] > [button]'), airmagic, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][mageair] > [decline] > [button]'), $('[picker][mageearth]'), {"path": "fluid", "size": 7, "color": $v('--negatory-color')})
+
+new LeaderLine($('[picker][warriorair] > [accept] > [button]'), airmagicdickless, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][warriorair] > [decline] > [button]'), $('[picker][warriorearth]'), {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* EARTH MAGIC */
+
+new LeaderLine($('[skill][airmagic]'), $('[picker][mageearth]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine($('[skill][airmagic][dickless]'), $('[picker][warriorearth]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+const earthmagic = LeaderLine.pointAnchor($('[skill][earthmagic]'), skillOffset)
+const earthmagicdickless = LeaderLine.pointAnchor($('[skill][earthmagic][dickless]'), skillOffset)
+new LeaderLine($('[picker][mageearth] > [accept] > [button]'), earthmagic, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][mageearth] > [decline] > [button]'), $('[picker][magefire]'), {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+new LeaderLine($('[picker][warriorearth] > [accept] > [button]'), earthmagicdickless, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][warriorearth] > [decline] > [button]'), $('[picker][warriorfire]'), {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* FIRE MAGIC */
+
+new LeaderLine($('[skill][earthmagic]'), $('[picker][magefire]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine($('[skill][earthmagic][dickless]'), $('[picker][warriorfire]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+const firemagic = LeaderLine.pointAnchor($('[skill][firemagic]'), skillOffset)
+const firemagicdickless = LeaderLine.pointAnchor($('[skill][firemagic][dickless]'), skillOffset)
+new LeaderLine($('[picker][magefire] > [accept] > [button]'), firemagic, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][magefire] > [decline] > [button]'), $('[picker][magewater]'), {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+new LeaderLine($('[picker][warriorfire] > [accept] > [button]'), firemagicdickless, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][warriorfire] > [decline] > [button]'), $('[picker][warriorwater]'), {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* WATER MAGIC */
+
+new LeaderLine($('[skill][firemagic]'), $('[picker][magewater]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine($('[skill][firemagic][dickless]'), $('[picker][warriorwater]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+const watermagic = LeaderLine.pointAnchor($('[skill][watermagic]'), skillOffset)
+new LeaderLine($('[picker][magewater] > [accept] > [button]'), watermagic, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][warriorwater] > [accept] > [button]'), watermagic, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+new LeaderLine($('[picker][magewater] > [decline] > [button]'), LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 70, y: 2900}), {"path": "grid", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 70, y: 3000}), LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3320, y: 3000}), {"path": "grid", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: 3000}), LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: 1900}), {"path": "grid", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: 1500}), LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: 200}), {"path": "grid", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: -100}), LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: -3300}), {"path": "grid", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: -3600}), LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: -6900}), {"path": "grid", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: -7200}), LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: -10000}), {"path": "grid", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: -10300}), LeaderLine.pointAnchor($('[picker][magewater] > [decline] > [button]'), {x: 3570, y: -11900}), {"path": "grid", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine($('[skill][watermagic]'), LeaderLine.pointAnchor($('[skill][watermagic]'), {x: 2570, y: 99}), {"path": "grid", "size": 7, "color": $v('--arrow-color')})
+
+const watermagiccorner = LeaderLine.pointAnchor($('[picker][warriorwater] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][warriorwater] > [decline] > [button]'), watermagiccorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* FOUR HORSEMEN OF APOCALYPSE */
+
+const apocalypsecorner = LeaderLine.pointAnchor($('[picker][dickless] > [decline] > [button]'), {x: 1200, y: 40})
+new LeaderLine($('[picker][dickless] > [decline] > [button]'), apocalypsecorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][dickless] > [decline] > [button]'), {x: 1300, y: 40}), $('[picker][apocalypsehorsemen]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+/* OFFENSE */
+
+new LeaderLine($('[picker][apocalypsehorsemen] > [accept] > [button]'), $('[picker][offense]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+const offense = LeaderLine.pointAnchor($('[skill][offense]'), skillOffset)
+new LeaderLine($('[picker][offense] > [accept] > [button]'), offense, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][offense]'), $('[picker][armorer]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const offensecorner = LeaderLine.pointAnchor($('[picker][armorer]'), {x: 600, y: -40})
+new LeaderLine($('[picker][offense] > [decline] > [button]'), offensecorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* ARMORER */
+
+const armorer = LeaderLine.pointAnchor($('[skill][armorer]'), skillOffset)
+new LeaderLine($('[picker][armorer] > [accept] > [button]'), armorer, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][armorer]'), $('[picker][logistics]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const armorercorner = LeaderLine.pointAnchor($('[picker][logistics]'), {x: 600, y: -40})
+new LeaderLine($('[picker][armorer] > [decline] > [button]'), armorercorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* LOGISTICS */
+
+const logistics = LeaderLine.pointAnchor($('[skill][logistics]'), skillOffset)
+new LeaderLine($('[picker][logistics] > [accept] > [button]'), logistics, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][logistics]'), $('[picker][diplomacy]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const logisticscorner = LeaderLine.pointAnchor($('[picker][diplomacy]'), {x: 600, y: -40})
+new LeaderLine($('[picker][logistics] > [decline] > [button]'), logisticscorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* DIPLOMACY */
+
+const diplomacy = LeaderLine.pointAnchor($('[skill][diplomacy]'), skillOffset)
+new LeaderLine($('[picker][diplomacy] > [accept] > [button]'), diplomacy, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][diplomacy] > [decline] > [button]'), LeaderLine.pointAnchor($('[picker][diplomacy] > [decline] > [button]'), {x: 1450, y: 40}), {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine($('[skill][diplomacy]'), LeaderLine.pointAnchor($('[skill][diplomacy]'), {x: 1970, y: 99}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[skill][diplomacy]'), {x: 2170, y: -1600}), LeaderLine.pointAnchor($('[skill][diplomacy]'), {x: 2170, y: -13400}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+
+/* DAMAGE BONUSES */
+
+const extradmgcorner = LeaderLine.pointAnchor($('[picker][apocalypsehorsemen] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][apocalypsehorsemen] > [decline] > [button]'), extradmgcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][apocalypsehorsemen] > [decline] > [button]'), {x: 1700, y: 40}), $('[picker][extradmg]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[skill][diplomacy]'), {x: 2170, y: 99}), LeaderLine.pointAnchor($('[picker][apocalypsehorsemen] > [decline] > [button]'), {x: 1480, y: 12400}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+// new LeaderLine(LeaderLine.pointAnchor($('[skill][diplomacy]'), {x: 2170, y: -800}), LeaderLine.pointAnchor($('[picker][apocalypsehorsemen] > [decline] > [button]'), {x: 1350, y: 100}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+/* ARCHERY */
+
+new LeaderLine($('[picker][extradmg] > [accept] > [button]'), $('[picker][archery]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+const archery = LeaderLine.pointAnchor($('[skill][archery]'), skillOffset)
+new LeaderLine($('[picker][archery] > [accept] > [button]'), archery, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][archery]'), $('[picker][leadership]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const archerycorner = LeaderLine.pointAnchor($('[picker][leadership]'), {x: 600, y: -40})
+new LeaderLine($('[picker][archery] > [decline] > [button]'), archerycorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* LEADERSHIP */
+
+const leadership = LeaderLine.pointAnchor($('[skill][leadership]'), skillOffset)
+new LeaderLine($('[picker][leadership] > [accept] > [button]'), leadership, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][leadership]'), $('[picker][luck]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const leadershipcorner = LeaderLine.pointAnchor($('[picker][luck]'), {x: 600, y: -40})
+new LeaderLine($('[picker][leadership] > [decline] > [button]'), leadershipcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* LUCK */
+
+const luck = LeaderLine.pointAnchor($('[skill][luck]'), skillOffset)
+new LeaderLine($('[picker][luck] > [accept] > [button]'), luck, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][luck]'), $('[picker][sorcery]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const luckcorner = LeaderLine.pointAnchor($('[picker][sorcery]'), {x: 600, y: -40})
+new LeaderLine($('[picker][luck] > [decline] > [button]'), luckcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* SORCERY */
+
+const sorcery = LeaderLine.pointAnchor($('[skill][sorcery]'), skillOffset)
+new LeaderLine($('[picker][sorcery] > [accept] > [button]'), sorcery, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+const sorcerycorner = LeaderLine.pointAnchor($('[picker][sorcery] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][sorcery] > [decline] > [button]'), sorcerycorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine($('[skill][sorcery]'), LeaderLine.pointAnchor($('[skill][sorcery]'), {x: 1870, y: 99}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+
+/* MAGE UTILITIES */
+
+const mageutils = LeaderLine.pointAnchor($('[picker][extradmg] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][extradmg] > [decline] > [button]'), mageutils, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][extradmg] > [decline] > [button]'), {x: 1400, y: 40}), $('[picker][mageutils]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[skill][sorcery]'), {x: 2070, y: 99}), LeaderLine.pointAnchor($('[skill][sorcery]'), {x: 2070, y: -1200}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[skill][sorcery]'), {x: 2070, y: -1500}), LeaderLine.pointAnchor($('[picker][extradmg] > [decline] > [button]'), {x: 1350, y: 100}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+/* INTELLIGENCE */
+
+new LeaderLine($('[picker][mageutils] > [accept] > [button]'), $('[picker][intelligence]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+const intelligence = LeaderLine.pointAnchor($('[skill][intelligence]'), skillOffset)
+new LeaderLine($('[picker][intelligence] > [accept] > [button]'), intelligence, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][intelligence]'), $('[picker][mysticism]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const intelligencecorner = LeaderLine.pointAnchor($('[picker][mysticism]'), {x: 600, y: -40})
+new LeaderLine($('[picker][intelligence] > [decline] > [button]'), intelligencecorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* MYSTICISM */
+
+const mysticism = LeaderLine.pointAnchor($('[skill][mysticism]'), skillOffset)
+new LeaderLine($('[picker][mysticism] > [accept] > [button]'), mysticism, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][mysticism]'), $('[picker][scholar]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const mysticismcorner = LeaderLine.pointAnchor($('[picker][scholar]'), {x: 600, y: -40})
+new LeaderLine($('[picker][mysticism] > [decline] > [button]'), mysticismcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* SCHOLAR */
+
+const scholar = LeaderLine.pointAnchor($('[skill][scholar]'), skillOffset)
+new LeaderLine($('[picker][scholar] > [accept] > [button]'), scholar, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][scholar]'), $('[picker][eagleeye]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const scholarcorner = LeaderLine.pointAnchor($('[picker][eagleeye]'), {x: 600, y: -40})
+new LeaderLine($('[picker][scholar] > [decline] > [button]'), scholarcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* EAGLE EYE */
+
+const eagleeye = LeaderLine.pointAnchor($('[skill][eagleeye]'), skillOffset)
+new LeaderLine($('[picker][eagleeye] > [accept] > [button]'), eagleeye, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[picker][eagleeye] > [decline] > [button]'), LeaderLine.pointAnchor($('[picker][eagleeye] > [decline] > [button]'), {x: 1300, y: 40}), {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine($('[skill][eagleeye]'), LeaderLine.pointAnchor($('[skill][eagleeye]'), {x: 1870, y: 99}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+
+/* MAP UTILITIES */
+
+const maputils = LeaderLine.pointAnchor($('[picker][mageutils] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][mageutils] > [decline] > [button]'), maputils, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][mageutils] > [decline] > [button]'), {x: 1400, y: 40}), $('[picker][maputils]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[skill][eagleeye]'), {x: 2070, y: 99}), LeaderLine.pointAnchor($('[skill][eagleeye]'), {x: 2070, y: -1200}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[skill][eagleeye]'), {x: 2070, y: -1400}), LeaderLine.pointAnchor($('[picker][mageutils] > [decline] > [button]'), {x: 1350, y: 100}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+/* PATHFINDING */
+
+new LeaderLine($('[picker][maputils] > [accept] > [button]'), $('[picker][pathfinding]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+const pathfinding = LeaderLine.pointAnchor($('[skill][pathfinding]'), skillOffset)
+new LeaderLine($('[picker][pathfinding] > [accept] > [button]'), pathfinding, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][pathfinding]'), $('[picker][estates]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const pathfindingcorner = LeaderLine.pointAnchor($('[picker][estates]'), {x: 600, y: -40})
+new LeaderLine($('[picker][pathfinding] > [decline] > [button]'), pathfindingcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* ESTATES */
+
+const estates = LeaderLine.pointAnchor($('[skill][estates]'), skillOffset)
+new LeaderLine($('[picker][estates] > [accept] > [button]'), estates, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][estates]'), $('[picker][scouting]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const estatescorner = LeaderLine.pointAnchor($('[picker][scouting]'), {x: 600, y: -40})
+new LeaderLine($('[picker][estates] > [decline] > [button]'), estatescorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* SCOUTING */
+
+const scouting = LeaderLine.pointAnchor($('[skill][scouting]'), skillOffset)
+new LeaderLine($('[picker][scouting] > [accept] > [button]'), scouting, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][scouting]'), $('[picker][navigation]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const scoutingcorner = LeaderLine.pointAnchor($('[picker][navigation]'), {x: 600, y: -40})
+new LeaderLine($('[picker][scouting] > [decline] > [button]'), scoutingcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* NAVIGATION */
+
+const navigation = LeaderLine.pointAnchor($('[skill][navigation]'), skillOffset)
+new LeaderLine($('[picker][navigation] > [accept] > [button]'), navigation, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+const navigationcorner = LeaderLine.pointAnchor($('[picker][navigation] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][navigation] > [decline] > [button]'), navigationcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+const navigationcorner2 = LeaderLine.pointAnchor($('[skill][navigation]'), {x: 1870, y: 99})
+new LeaderLine($('[skill][navigation]'), navigationcorner2, {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+new LeaderLine(LeaderLine.pointAnchor($('[skill][navigation]'), {x: 2070, y: 99}), LeaderLine.pointAnchor($('[skill][navigation]'), {x: 2070, y: -1200}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[skill][navigation]'), {x: 2070, y: -1500}), LeaderLine.pointAnchor($('[picker][maputils] > [decline] > [button]'), {x: 1350, y: 100}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+
+/* BATTLE SKILLS UTILITIES */
+
+const battle = LeaderLine.pointAnchor($('[picker][maputils] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][maputils] > [decline] > [button]'), battle, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][maputils] > [decline] > [button]'), {x: 1400, y: 40}), $('[picker][battle]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+/* TACTICS */
+
+new LeaderLine($('[picker][battle] > [accept] > [button]'), $('[picker][tactics]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+const tactics = LeaderLine.pointAnchor($('[skill][tactics]'), skillOffset)
+new LeaderLine($('[picker][tactics] > [accept] > [button]'), tactics, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][tactics]'), $('[picker][ballistics]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const tacticscorner = LeaderLine.pointAnchor($('[picker][ballistics]'), {x: 600, y: -40})
+new LeaderLine($('[picker][tactics] > [decline] > [button]'), tacticscorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* BALLISTICS */
+
+const ballistics = LeaderLine.pointAnchor($('[skill][ballistics]'), skillOffset)
+new LeaderLine($('[picker][ballistics] > [accept] > [button]'), ballistics, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][ballistics]'), $('[picker][artillery]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const ballisticscorner = LeaderLine.pointAnchor($('[picker][artillery]'), {x: 600, y: -40})
+new LeaderLine($('[picker][ballistics] > [decline] > [button]'), ballisticscorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* ARTILLERY */
+
+const artillery = LeaderLine.pointAnchor($('[skill][artillery]'), skillOffset)
+new LeaderLine($('[picker][artillery] > [accept] > [button]'), artillery, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][artillery]'), $('[picker][firstaid]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const artillerycorner = LeaderLine.pointAnchor($('[picker][firstaid]'), {x: 600, y: -40})
+new LeaderLine($('[picker][artillery] > [decline] > [button]'), artillerycorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* FIRST AID */
+
+const firstaid = LeaderLine.pointAnchor($('[skill][firstaid]'), skillOffset)
+new LeaderLine($('[picker][firstaid] > [accept] > [button]'), firstaid, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+const firstaidcorner = LeaderLine.pointAnchor($('[picker][firstaid] > [decline] > [button]'), {x: 1300, y: 40})
+new LeaderLine($('[picker][firstaid] > [decline] > [button]'), firstaidcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+const firstaidcorner2 = LeaderLine.pointAnchor($('[skill][firstaid]'), {x: 1870, y: 99})
+new LeaderLine($('[skill][firstaid]'), firstaidcorner2, {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+new LeaderLine(LeaderLine.pointAnchor($('[skill][firstaid]'), {x: 2070, y: 99}), LeaderLine.pointAnchor($('[skill][firstaid]'), {x: 2070, y: -1200}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[skill][firstaid]'), {x: 2070, y: -1500}), LeaderLine.pointAnchor($('[picker][battle] > [decline] > [button]'), {x: 1450, y: 100}), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+
+/* DARK ARTS */
+const darkarts = LeaderLine.pointAnchor($('[picker][battle] > [decline] > [button]'), {x: 1400, y: 40})
+new LeaderLine($('[picker][battle] > [decline] > [button]'), darkarts, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+new LeaderLine(LeaderLine.pointAnchor($('[picker][battle] > [decline] > [button]'), {x: 1500, y: 40}), $('[picker][darkarts]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+
+
+/* NECROMANCY */
+
+new LeaderLine($('[picker][battle] > [accept] > [button]'), $('[picker][tactics]'), {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+
+const necromancy = LeaderLine.pointAnchor($('[skill][necromancy]'), skillOffset)
+new LeaderLine($('[picker][necromancy] > [accept] > [button]'), necromancy, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][necromancy]'), $('[picker][resistance]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const necromancycorner = LeaderLine.pointAnchor($('[picker][resistance]'), {x: 600, y: -40})
+new LeaderLine($('[picker][necromancy] > [decline] > [button]'), necromancycorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* RESISTANCE */
+
+const resistance = LeaderLine.pointAnchor($('[skill][resistance]'), skillOffset)
+new LeaderLine($('[picker][resistance] > [accept] > [button]'), resistance, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][resistance]'), $('[picker][learning]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const resistancecorner = LeaderLine.pointAnchor($('[picker][learning]'), {x: 600, y: -40})
+new LeaderLine($('[picker][resistance] > [decline] > [button]'), resistancecorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* LEARNING */
+
+const learning = LeaderLine.pointAnchor($('[skill][learning]'), skillOffset)
+new LeaderLine($('[picker][learning] > [accept] > [button]'), learning, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][learning]'), $('[picker][alcoholism]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const learningcorner = LeaderLine.pointAnchor($('[picker][alcoholism]'), {x: 600, y: -40})
+new LeaderLine($('[picker][learning] > [decline] > [button]'), learningcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+/* ALCOHOLISM */
+
+const alcoholism = LeaderLine.pointAnchor($('[skill][alcoholism]'), skillOffset)
+new LeaderLine($('[picker][alcoholism] > [accept] > [button]'), alcoholism, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][alcoholism]'), $('[picker][interference]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+const alcoholismcorner = LeaderLine.pointAnchor($('[picker][interference]'), {x: 600, y: -40})
+new LeaderLine($('[picker][alcoholism] > [decline] > [button]'), alcoholismcorner, {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+/* INTERFERENCE */
+
+const interference = LeaderLine.pointAnchor($('[skill][interference]'), skillOffset)
+new LeaderLine($('[picker][interference] > [accept] > [button]'), interference, {"path": "magnet", "size": 7, "color": $v('--affirmative-color')})
+new LeaderLine($('[skill][interference]'), $('div[end]'), {"path": "magnet", "size": 7, "color": $v('--arrow-color')})
+new LeaderLine($('[picker][interference] > [decline] > [button]'), $('div[end]'), {"path": "magnet", "size": 7, "color": $v('--negatory-color')})
+
+
+</script>
+</body>
+</html>
